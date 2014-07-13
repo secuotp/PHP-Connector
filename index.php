@@ -9,10 +9,7 @@
             $param->add("ahu", "vava3");
             $param->add("aho", "vava4");
 
-            while($param->hasNext()){
-                $text = $param->pop();
-                echo '<p>key='.$text[0].' value='.$text[1].'</p>';
-            }
+            echo $param->getValue('ahu');
 
             $param->clear();
             

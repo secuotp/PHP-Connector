@@ -59,9 +59,9 @@ class XMLParameter {
     }
 
     public function getValue($key){
-        for($i = 0; i < sizeof(self::$keyList); $i++){
-            if(self::$keyList[i] === $key){
-                return self::$valueList[i];
+        for($i = 0; $i < sizeof(self::$keyList); $i++){
+            if(self::$keyList[$i] === $key){
+                return self::$valueList[$i];
             }
         }
         return NULL;
