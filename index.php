@@ -1,19 +1,32 @@
+<?php
+include 'ArrayList.php';
+?>
 <html>
+    <head></head>
     <body>
         <?php
-            include 'XMLParameter.php';
-
-            $param = new XMLParameter();
-            $param->add("aha", "vava1");
-            $param->add("ahe", "vava2");
-            $param->add("ahu", "vava3");
-            $param->add("aho", "vava4");
-
-            echo $param->getValue('ahu');
-
-            $param->clear();
+            $a = new ArrayList();
+            $a->add(40);
+            $a->add(100);
+            $a->add(120);
+            $a->add(150);
+            $a->add(200);
+            $a->add(400);
             
-            echo '<h1>'.$param->hasNext().'</h1>';
+            $i = 0;
+            while($i < $a->size()){
+                echo '<h4>'.$a->get($i).'</h4>';
+                $i++;
+            }
+            echo '<hr/>';
+            
+            $a->remove(3);
+            $a->remove(0);
+            $i = 0;
+            while($i < $a->size()){
+                echo '<h4>'.$a->get($i).'</h4>';
+                $i++;
+            }
         ?>
     </body>
 </html>
