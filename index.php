@@ -1,6 +1,7 @@
 <?php
     include 'Asset/ArrayList.php';
     include 'XMLRequest.php';
+    include 'Service.php';
 ?>
 <html>
     <head>
@@ -9,16 +10,15 @@
     <body>
         <?php
             $request = new XMLRequest();
-            $request->setSid('M-01');
-            $request->setDomainName("haro.gmail.com");
-            $request->setSerialnumber('XXXXX-XXXXX-XXXXX-XXXXX');
-            $request->addChildValue("fname", "Panasan");
-            $changeTag = $request->addChildTag("change");
-            $changeTag->addChildValue("parameter", "username");
-            $changeTag->addChildValue("value", "hahaha");
+            $request->setSid('U-01');
+            $request->setDomainName("https://hoax.co.jp");
+            $request->setSerialnumber('34BWS-GH56N-JQ45M-PP2HG');
+            $request->addChildValue("username", "zenology");
+            $request->addChildValue("type", "full");
             
-            $xml = $request->asXML();
-            echo $xml;
+            
+            echo Service::sendRequest($request, 'http://secuotp.sit.kmutt.ac.th/SecuOTP-Service/user/end-user', 'POST');
+            
         ?>
     </body>
 </html>
