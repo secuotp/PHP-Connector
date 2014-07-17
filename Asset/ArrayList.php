@@ -29,11 +29,11 @@ class ArrayList{
 
 
     public function remove($index){
-        for($i = $index + 1; $i < $this->size(); $i++){
+        for($i = $index + 1; $i < $this->size() + 1; $i++){
             if($i !== $this->size()){
-                $this->data[$i - 1] = $this->data[$i];
+                    $this->data[$i - 1] = $this->data[$i];
             }else{
-                $this->data[$i] = NULL;
+                unset($this->data[$this->size() - 1]);
             }
         }
     }
