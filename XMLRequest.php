@@ -5,7 +5,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-include 'Asset/XMLTag.php';
+include 'XMLTag.php';
+include 'XMLResponse.php';
 /**
  * Description of XMLRequest
  *
