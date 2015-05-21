@@ -5,7 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-include 'Asset/XMLResponse.php';
+
 /**
  * Description of Service
  *
@@ -23,37 +23,60 @@ class Service {
                 $newUrl = $newUrl . '&';
             }
         }
-        $response = file_get_contents($newUrl);
-        $response = new XMLResponse($response);
-        return $response;
+
+        $contextOptions = array(
+                'ssl' => [
+                    'verify_peer' => FALSE,
+                    'verify_peer_name' => FALSE,
+                    'allow_self_signed' => true
+                ]
+            
+        );
+        $sslContext = stream_context_create($contextOptions);
+
+        $response = file_get_contents($newUrl, false, $sslContext);
+        $responseData = new XMLResponse($response);
+        return $responseData;
     }
 
     public static function sendPOST(XMLRequest $request, $serviceUrl) {
         $postData = http_build_query(array('request' => $request->asXML()));
         $opts = array(
-            'http' => array(
+            'http' => [
                 'method' => 'POST',
                 'header' => 'Content-type:application/xml',
-                'content' => $postData)
+                'content' => $postData
+            ],
+            'ssl' => [
+                    'verify_peer' => FALSE,
+                    'verify_peer_name' => FALSE,
+                    'allow_self_signed' => true
+            ]
         );
         $context = stream_context_create($opts);
         $response = file_get_contents($serviceUrl, false, $context);
-        $response = new XMLResponse($response);
-        return $response;
+        $responseData = new XMLResponse($response);
+        return $responseData;
     }
 
     public static function sendPUT(XMLRequest $request, $serviceUrl) {
         $postData = http_build_query(array('request' => $request->asXML()));
         $opts = array(
-            'http' => array(
+            'http' => [
                 'method' => 'PUT',
                 'header' => 'Content-type:application/xml',
-                'content' => $postData)
+                'content' => $postData,
+            ],
+            'ssl' => [
+                    'verify_peer' => FALSE,
+                    'verify_peer_name' => FALSE,
+                    'allow_self_signed' => true
+            ]
         );
         $context = stream_context_create($opts);
         $response = file_get_contents($serviceUrl, false, $context);
-        $response = new XMLResponse($response);
-        return $response;
+        $responseData = new XMLResponse($response);
+        return $responseData;
     }
 
     private function parseResponse($xml) {

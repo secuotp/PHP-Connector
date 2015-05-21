@@ -1,23 +1,16 @@
 <?php
 
-include 'Asset/ArrayList.php';
-include 'XMLRequest.php';
-include 'Service.php';
 
-$request = new XMLRequest();
-$request->setSid('U-02');
-$request->setDomainName("https://hoax.co.jp");
-$request->setSerialnumber('34BWS-GH56N-JQ45M-PP2HG');
-$request->addChildValue("username", "aa");
-$changeTag = $request->addChildTag("change");
-$changeTag->addChildValue("param","fname");
-$changeTag->addChildValue("value","fname");
+include 'SecuOTPService.php';
 
-$parse = Service::sendPUT($request, "http://secuotp.sit.kmutt.ac.th/SecuOTP-Service/user/end-user");
 
-echo $parse->getMessage();
-while($parse->getParameter()->hasNext()){
-    $txt = $parse->getParameter()->pop();
-    echo $txt[0].' = '.$txt[1].'<br/>';
+$service = new SecuOTPService('https://secuotp-test.co.th', '5L44G-7XR1G-V5RAM-JC6KG');
+$status = $service->authenticateOneTimePassword('zenology', '1514802');
+$object = $status->getData();
+
+if ($status->getStatusId() === 100) {
+    echo '<h1>So Good</h1>';
+} else {
+    echo '<p>' . $status->getStatusText() . '</p>';
 }
 ?>
